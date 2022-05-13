@@ -1,0 +1,20 @@
+USE surveyDb
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE TYPE = 'P' AND NAME = 'SPR_PerfilesEliminar')
+DROP PROCEDURE SPR_PerfilesEliminar
+GO
+
+CREATE PROCEDURE SPR_PerfilesEliminar 
+    @IdPerfil INT
+AS
+BEGIN
+SET NOCOUNT ON;
+
+Delete from Perfiles
+WHERE IdPerfil = @IdPerfil
+
+END
+GO

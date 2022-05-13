@@ -1,0 +1,20 @@
+USE surveyDb
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE TYPE = 'P' AND NAME = 'SPR_UsuariosEliminar')
+DROP PROCEDURE SPR_UsuariosEliminar
+GO
+
+CREATE PROCEDURE SPR_UsuariosEliminar 
+    @IdUsuario INT
+AS
+BEGIN
+SET NOCOUNT ON;
+
+Delete from Usuarios
+WHERE IdUsuario = @IdUsuario
+
+END
+GO
