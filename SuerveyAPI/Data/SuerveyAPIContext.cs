@@ -15,6 +15,17 @@ namespace SuerveyAPI.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<EncuestaSelect>().ToSqlQuery(@"EXEC SPR_EncuestasSeleccionar").HasNoKey();
+            modelBuilder.Entity<EncuestasTiempoSelec>().ToSqlQuery("EXEC SPR_EncuestasTiempoSeleccionar").HasNoKey();
+            modelBuilder.Entity<PreguntasResultadoSelect>().ToSqlQuery("EXEC SPR_PreguntasResultadoSeleccionar").HasNoKey();
+            modelBuilder.Entity<PreguntasSelect>().ToSqlQuery("EXEC SPR_PreguntasSeleccionar").HasNoKey();
+            modelBuilder.Entity<PreguntasTiempoSelect>().ToSqlQuery("EXEC SPR_PreguntasTiempoSeleccionar").HasNoKey();
+            modelBuilder.Entity<RespuestasSelect>().ToSqlQuery("EXEC SPR_RespuestasSeleccionar").HasNoKey();
+        }
+
         public DbSet<CapaDatos.Data.Categorias>? Categorias { get; set; }
 
         public DbSet<CapaDatos.Data.Encuestas>? Encuestas { get; set; }

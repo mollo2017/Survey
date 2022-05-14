@@ -66,11 +66,11 @@ namespace CapaDatos.Migrations
             /*SPR_EncuestasSeleccionar*/
             migrationBuilder.Sql(
                 @"CREATE PROCEDURE SPR_EncuestasSeleccionar
-                    @Nombre NVARCHAR(50),
-                    @IdEncuesta INT,
-                    @Estatus BIT,
-                    @IdCategoria INT,
-                    @IdUsuario INT
+                    @Nombre NVARCHAR(50) = NULL,
+                    @IdEncuesta INT = NULL,
+                    @Estatus BIT = NULL,
+                    @IdCategoria INT = NULL,
+                    @IdUsuario INT = NULL
                 AS
                 BEGIN
                 SET NOCOUNT ON;
@@ -123,8 +123,10 @@ namespace CapaDatos.Migrations
                 AND rue.IdEncuesta = @IdEncuesta
 
                 SELECT 
+                    e.IdEncuesta AS [IdEncuesta],
                     e.Nombre AS [Encuesta],
                     DATEDIFF(minute, @Inicio, @Fin) AS [TiempoEncuesta],
+                    u.IdUsuario AS [IdUsuario],
                     CONCAT(u.Nombre, ' ', u.Apaterno, ' ', u.Amaterno) AS [Usuario]
                 FROM RegistroUsuarioEncuesta rue 
                 INNER JOIN Encuestas e ON e.IdEncuesta = rue.IdEncuesta

@@ -49,6 +49,46 @@ namespace SuerveyAPI.Controllers
 
             return preguntas;
         }
+        /// <summary>
+        /// Obtener datos de resultados de la encuesta
+        /// </summary>
+        /// <param name="idEncuesta"> Identificador de encuesta</param>
+        /// <param name="idUsuario">Identificador de usuario</param>
+        /// <returns></returns>
+        [HttpGet("GetPreguntasResultados/{idEncuesta},{idUsuario}")]
+        public async Task<IEnumerable<PreguntasResultadoSelect>> GetPreguntasResultados(int idEncuesta, int idUsuario)
+        {
+            return await _context.Set<PreguntasResultadoSelect>().FromSqlInterpolated($@"EXEC SPR_PreguntasResultadoSeleccionar 
+                                                                            @IdEncuesta={idEncuesta},
+                                                                            @IdUsuario={idUsuario}").ToListAsync();
+        }
+        /// <summary>
+        /// Obtener datos de preguntas por encuesta
+        /// </summary>
+        /// <param name="idPregunta"> Identificador de pregunta</param>
+        /// <param name="idUsuario">Identificador de usuario</param>
+        /// <returns></returns>
+        [HttpGet("GetPreguntasPorEncuesta/{idPregunta},{idUsuario}")]
+        public async Task<IEnumerable<PreguntasSelect>> GetPreguntasPorEncuesta(int idPregunta, int idUsuario)
+        {
+            return await _context.Set<PreguntasSelect>().FromSqlInterpolated($@"EXEC SPR_PreguntasSeleccionar 
+                                                                            @IdPregunta={idPregunta},
+                                                                            @IdUsuario={idUsuario}").ToListAsync();
+        }
+
+        /// <summary>
+        /// Obtener datos de tiempo de respuesta de preguntas contestadas
+        /// </summary>
+        /// <param name="idEncuesta"> Identificador de encuesta</param>
+        /// <param name="idUsuario">Identificador de usuario</param>
+        /// <returns></returns>
+        [HttpGet("GetPreguntasTiempo/{idEncuesta},{idUsuario}")]
+        public async Task<IEnumerable<PreguntasTiempoSelect>> GetPreguntasTiempo(int idEncuesta, int idUsuario)
+        {
+            return await _context.Set<PreguntasTiempoSelect>().FromSqlInterpolated($@"EXEC SPR_PreguntasTiempoSeleccionar 
+                                                                            @IdEncuesta={idEncuesta},
+                                                                            @IdUsuario={idUsuario}").ToListAsync();
+        }
 
         // PUT: api/Preguntas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

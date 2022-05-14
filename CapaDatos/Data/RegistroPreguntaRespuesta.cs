@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CapaDatos.Data
 {
-    internal class RegistroPreguntaRespuesta
+    public class RegistroPreguntaRespuesta
     {
         [Key]
         public int IdRegistroPreguntaRespuesta { get; set; }

@@ -8,11 +8,11 @@ DROP PROCEDURE SPR_EncuestasSeleccionar
 GO
 
 CREATE PROCEDURE SPR_EncuestasSeleccionar
-    @Nombre NVARCHAR(50),
-    @IdEncuesta INT,
-    @Estatus BIT,
-    @IdCategoria INT,
-    @IdUsuario INT
+    @Nombre NVARCHAR(50) = NULL,
+    @IdEncuesta INT = NULL,
+    @Estatus BIT = NULL,
+    @IdCategoria INT = NULL,
+    @IdUsuario INT = NULL
 AS
 BEGIN
 SET NOCOUNT ON;

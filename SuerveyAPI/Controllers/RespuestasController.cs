@@ -32,6 +32,20 @@ namespace SuerveyAPI.Controllers
             return await _context.Respuestas.ToListAsync();
         }
 
+        /// <summary>
+        /// Obtener datos de respuestas por pregunta
+        /// </summary>
+        /// <param name="idRespuesta">Identificador de respuesta</param>
+        /// <param name="idPregunta">Identificador de pregunta</param>
+        /// <returns></returns>
+        [HttpGet("GetRespuestasPorPregunta/{idRespuesta},{idPregunta}")]
+        public async Task<IEnumerable<RespuestasSelect>> GetRespuestasPorPregunta(int? idRespuesta, int? idPregunta)
+        {
+            return await _context.Set<RespuestasSelect>().FromSqlInterpolated($@"EXEC SPR_RespuestasSeleccionar 
+                                                                            @IdRespuesta={idRespuesta},
+                                                                            @IdPregunta={idPregunta}").ToListAsync();
+        }
+
         // GET: api/Respuestas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Respuestas>> GetRespuestas(int id)

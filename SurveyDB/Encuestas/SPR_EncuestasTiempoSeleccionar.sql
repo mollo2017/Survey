@@ -32,8 +32,10 @@ AND rue.IdUsuario = @IdUsuario
 AND rue.IdEncuesta = @IdEncuesta
 
 SELECT 
+    e.IdEncuesta AS [IdEncuesta],
     e.Nombre AS [Encuesta],
     DATEDIFF(minute, @Inicio, @Fin) AS [TiempoEncuesta],
+    u.IdUsuario AS [IdUsuario],
     CONCAT(u.Nombre, ' ', u.Apaterno, ' ', u.Amaterno) AS [Usuario]
 FROM RegistroUsuarioEncuesta rue 
 INNER JOIN Encuestas e ON e.IdEncuesta = rue.IdEncuesta

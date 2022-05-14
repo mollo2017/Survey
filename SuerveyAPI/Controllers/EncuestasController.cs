@@ -50,6 +50,39 @@ namespace SuerveyAPI.Controllers
             return encuestas;
         }
 
+        /// <summary>
+        /// Obtener datos de encuestas filtrados, puede recuperar encuestas contestadas por usuario
+        /// </summary>
+        /// <param name="id"> Identificador de encuesta</param>
+        /// <param name="nombre">Nombre de encuesta</param>
+        /// <param name="estatus">estatus de la encuesta</param>
+        /// <param name="idCategoria">Identificador de categoria</param>
+        /// <param name="idUsuario">Identificador de usuario</param>
+        /// <returns></returns>
+        [HttpGet("GetEncuestasPorUsuario/{id},{nombre},{estatus},{idCategoria},{idUsuario}")]
+        public async Task<IEnumerable<EncuestaSelect>> GetEncuestasPorUsuario(int? id, string? nombre, bool? estatus, int? idCategoria, int? idUsuario)
+        {
+            return await _context.Set<EncuestaSelect>().FromSqlInterpolated($@"EXEC SPR_EncuestasSeleccionar
+                                                                            @Nombre={nombre},
+                                                                            @IdEncuesta={id},
+                                                                            @Estatus={estatus},
+                                                                            @IdCategoria={idCategoria},
+                                                                            @IdUsuario={idUsuario}").ToListAsync();
+        }
+        /// <summary>
+        /// Obtener datos de tiempo de repuesta de encuestas
+        /// </summary>
+        /// <param name="id"> Identificador de encuesta</param>
+        /// <param name="idUsuario">Identificador de usuario</param>
+        /// <returns></returns>
+        [HttpGet("GetEncuestasTiempo/{id},{idUsuario}")]
+        public async Task<IEnumerable<EncuestasTiempoSelec>> GetEncuestasTiempo(int id, int idUsuario)
+        {
+            return await _context.Set<EncuestasTiempoSelec>().FromSqlInterpolated($@"EXEC SPR_EncuestasTiempoSeleccionar 
+                                                                            @IdEncuesta={id},
+                                                                            @IdUsuario={idUsuario}").ToListAsync();
+        }
+
         // PUT: api/Encuestas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
