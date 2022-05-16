@@ -62,6 +62,7 @@ namespace SuerveyAPI.Controllers
         [HttpGet("GetEncuestasPorUsuario/{id},{nombre},{estatus},{idCategoria},{idUsuario}")]
         public async Task<IEnumerable<EncuestaSelect>> GetEncuestasPorUsuario(int? id, string? nombre, bool? estatus, int? idCategoria, int? idUsuario)
         {
+            
             return await _context.Set<EncuestaSelect>().FromSqlInterpolated($@"EXEC SPR_EncuestasSeleccionar
                                                                             @Nombre={nombre},
                                                                             @IdEncuesta={id},
@@ -78,9 +79,9 @@ namespace SuerveyAPI.Controllers
         [HttpGet("GetEncuestasTiempo/{id},{idUsuario}")]
         public async Task<IEnumerable<EncuestasTiempoSelec>> GetEncuestasTiempo(int id, int idUsuario)
         {
-            return await _context.Set<EncuestasTiempoSelec>().FromSqlInterpolated($@"EXEC SPR_EncuestasTiempoSeleccionar 
-                                                                            @IdEncuesta={id},
-                                                                            @IdUsuario={idUsuario}").ToListAsync();
+            var et = await _context.Set<EncuestasTiempoSelec>().FromSqlInterpolated($@"EXEC SPR_EncuestasTiempoSeleccionar @IdEncuesta={id}, @IdUsuario={idUsuario}").ToListAsync();
+            
+            return et;
         }
 
         // PUT: api/Encuestas/5

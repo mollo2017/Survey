@@ -10,7 +10,7 @@ GO
 CREATE PROCEDURE SPR_UsuariosInsertar 
 @IdUsuario INT,
 @Nombre NVARCHAR(50),
-@Aparterno NVARCHAR(50),
+@Apaterno NVARCHAR(50),
 @Amaterno NVARCHAR(50),
 @Correo NVARCHAR(100),
 @Contrasenia NVARCHAR(20),
@@ -24,7 +24,7 @@ SET NOCOUNT ON;
 DECLARE @Hoy DATETIME = GETDATE()
 INSERT INTO Usuarios(
     Nombre,
-    Aparterno,
+    Apaterno,
     Amaterno,
     Correo,
     Contrasenia,
@@ -37,7 +37,7 @@ INSERT INTO Usuarios(
 )
 VALUES(
     @Nombre,
-    @Aparterno,
+    @Apaterno,
     @Amaterno,
     @Correo,
     @Contrasenia,

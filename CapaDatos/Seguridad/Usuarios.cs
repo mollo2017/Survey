@@ -19,7 +19,7 @@ namespace CapaDatos.Seguridad
         public string Nombre { get; set; } = string.Empty;
         [Required]
         [StringLength(50)]
-        public string Aparterno { get; set; } = string.Empty;
+        public string Apaterno { get; set; } = string.Empty;
         [Required]
         [StringLength(50)]
         public string Amaterno { get; set; } = string.Empty;

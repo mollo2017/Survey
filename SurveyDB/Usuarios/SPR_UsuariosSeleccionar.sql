@@ -17,7 +17,7 @@ SET NOCOUNT ON;
 SELECT 
     IdUsuario AS [IdUsuario],
     p.Nombre AS [Nombre],
-    p.Aparterno AS [Aparterno],
+    p.Apaterno AS [Apaterno],
     p.Amaterno AS [Amaterno],
     p.Correo AS [Correo],
     p.Contrasenia AS [Contrasenia],

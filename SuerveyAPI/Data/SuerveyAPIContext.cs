@@ -19,7 +19,7 @@ namespace SuerveyAPI.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<EncuestaSelect>().ToSqlQuery(@"EXEC SPR_EncuestasSeleccionar").HasNoKey();
-            modelBuilder.Entity<EncuestasTiempoSelec>().ToSqlQuery("EXEC SPR_EncuestasTiempoSeleccionar").HasNoKey();
+            modelBuilder.Entity<EncuestasTiempoSelec>().ToSqlQuery(@"EXEC SPR_EncuestasTiempoSeleccionar @IdEncuesta, @IdUsuario").HasNoKey();
             modelBuilder.Entity<PreguntasResultadoSelect>().ToSqlQuery("EXEC SPR_PreguntasResultadoSeleccionar").HasNoKey();
             modelBuilder.Entity<PreguntasSelect>().ToSqlQuery("EXEC SPR_PreguntasSeleccionar").HasNoKey();
             modelBuilder.Entity<PreguntasTiempoSelect>().ToSqlQuery("EXEC SPR_PreguntasTiempoSeleccionar").HasNoKey();
@@ -49,5 +49,9 @@ namespace SuerveyAPI.Data
         public DbSet<CapaDatos.Seguridad.Acciones>? Acciones { get; set; }
 
         public DbSet<CapaDatos.Data.Respuestas>? Respuestas { get; set; }
+
+        public DbSet<CapaDatos.Data.CtrlEncuestaPregunta> CtrlEncuestaPregunta { get; set; }
+
+        public DbSet<CapaDatos.Data.CtrlPreguntaRespuesta>CtrlPreguntaRespuesta { get; set; }
     }
 }

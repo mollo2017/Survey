@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CapaDatos.Migrations
+namespace SuerveyAPI.Migrations
 {
-    public partial class ProcedimientosAlmacenados : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -179,47 +179,15 @@ namespace CapaDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CtrlPreguntaRespuesta",
+                name: "RegistroUsuarioEncuesta",
                 columns: table => new
                 {
-                    IdCtrlPreguntaRespuesta = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdPregunta = table.Column<int>(type: "int", nullable: false),
-                    PreguntasIdPregunta = table.Column<int>(type: "int", nullable: true),
-                    IdRespuesta = table.Column<int>(type: "int", nullable: false),
-                    RespuestasIdRespuesta = table.Column<int>(type: "int", nullable: true),
-                    IsRespuesta = table.Column<bool>(type: "bit", nullable: false),
-                    Orden = table.Column<int>(type: "int", nullable: false),
-                    IdAgrego = table.Column<int>(type: "int", nullable: false),
-                    FechaAgrego = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdModifico = table.Column<int>(type: "int", nullable: false),
-                    FechaModifico = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CtrlPreguntaRespuesta", x => x.IdCtrlPreguntaRespuesta);
-                    table.ForeignKey(
-                        name: "FK_CtrlPreguntaRespuesta_Preguntas_PreguntasIdPregunta",
-                        column: x => x.PreguntasIdPregunta,
-                        principalTable: "Preguntas",
-                        principalColumn: "IdPregunta");
-                    table.ForeignKey(
-                        name: "FK_CtrlPreguntaRespuesta_Respuestas_RespuestasIdRespuesta",
-                        column: x => x.RespuestasIdRespuesta,
-                        principalTable: "Respuestas",
-                        principalColumn: "IdRespuesta");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CtrlEncuestaPregunta",
-                columns: table => new
-                {
-                    IdCtrlEncuestaPregunta = table.Column<int>(type: "int", nullable: false)
+                    IdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdEncuesta = table.Column<int>(type: "int", nullable: false),
                     EncuestasIdEncuesta = table.Column<int>(type: "int", nullable: true),
-                    IdPregunta = table.Column<int>(type: "int", nullable: false),
-                    PreguntasIdPregunta = table.Column<int>(type: "int", nullable: true),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    UsuariosIdUsuario = table.Column<int>(type: "int", nullable: true),
                     IdAgrego = table.Column<int>(type: "int", nullable: false),
                     FechaAgrego = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IdModifico = table.Column<int>(type: "int", nullable: false),
@@ -227,38 +195,113 @@ namespace CapaDatos.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CtrlEncuestaPregunta", x => x.IdCtrlEncuestaPregunta);
+                    table.PrimaryKey("PK_RegistroUsuarioEncuesta", x => x.IdRegistroUsuarioEncuesta);
                     table.ForeignKey(
-                        name: "FK_CtrlEncuestaPregunta_Encuestas_EncuestasIdEncuesta",
+                        name: "FK_RegistroUsuarioEncuesta_Encuestas_EncuestasIdEncuesta",
                         column: x => x.EncuestasIdEncuesta,
                         principalTable: "Encuestas",
                         principalColumn: "IdEncuesta");
                     table.ForeignKey(
-                        name: "FK_CtrlEncuestaPregunta_Preguntas_PreguntasIdPregunta",
+                        name: "FK_RegistroUsuarioEncuesta_Usuarios_UsuariosIdUsuario",
+                        column: x => x.UsuariosIdUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegistroEncuesta",
+                columns: table => new
+                {
+                    IdRegistroEncuesta = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegistoEvento = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: false),
+                    RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: true),
+                    TiempoRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdAgrego = table.Column<int>(type: "int", nullable: false),
+                    FechaAgrego = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdModifico = table.Column<int>(type: "int", nullable: false),
+                    FechaModifico = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistroEncuesta", x => x.IdRegistroEncuesta);
+                    table.ForeignKey(
+                        name: "FK_RegistroEncuesta_RegistroUsuarioEncuesta_RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta",
+                        column: x => x.RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta,
+                        principalTable: "RegistroUsuarioEncuesta",
+                        principalColumn: "IdRegistroUsuarioEncuesta");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegistroEncuestaPregunta",
+                columns: table => new
+                {
+                    IdRegistroEncuestaPregunta = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegistoEvento = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: false),
+                    RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: true),
+                    TiempoRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdPregunta = table.Column<int>(type: "int", nullable: false),
+                    PreguntasIdPregunta = table.Column<int>(type: "int", nullable: false),
+                    IdAgrego = table.Column<int>(type: "int", nullable: false),
+                    FechaAgrego = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdModifico = table.Column<int>(type: "int", nullable: false),
+                    FechaModifico = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistroEncuestaPregunta", x => x.IdRegistroEncuestaPregunta);
+                    table.ForeignKey(
+                        name: "FK_RegistroEncuestaPregunta_Preguntas_PreguntasIdPregunta",
+                        column: x => x.PreguntasIdPregunta,
+                        principalTable: "Preguntas",
+                        principalColumn: "IdPregunta",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RegistroEncuestaPregunta_RegistroUsuarioEncuesta_RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta",
+                        column: x => x.RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta,
+                        principalTable: "RegistroUsuarioEncuesta",
+                        principalColumn: "IdRegistroUsuarioEncuesta");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegistroPreguntaRespuesta",
+                columns: table => new
+                {
+                    IdRegistroPreguntaRespuesta = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: false),
+                    RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta = table.Column<int>(type: "int", nullable: true),
+                    IdPregunta = table.Column<int>(type: "int", nullable: false),
+                    PreguntasIdPregunta = table.Column<int>(type: "int", nullable: true),
+                    IdRespuesta = table.Column<int>(type: "int", nullable: false),
+                    RespuestasIdRespuesta = table.Column<int>(type: "int", nullable: true),
+                    IdAgrego = table.Column<int>(type: "int", nullable: false),
+                    FechaAgrego = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdModifico = table.Column<int>(type: "int", nullable: false),
+                    FechaModifico = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistroPreguntaRespuesta", x => x.IdRegistroPreguntaRespuesta);
+                    table.ForeignKey(
+                        name: "FK_RegistroPreguntaRespuesta_Preguntas_PreguntasIdPregunta",
                         column: x => x.PreguntasIdPregunta,
                         principalTable: "Preguntas",
                         principalColumn: "IdPregunta");
+                    table.ForeignKey(
+                        name: "FK_RegistroPreguntaRespuesta_RegistroUsuarioEncuesta_RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta",
+                        column: x => x.RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta,
+                        principalTable: "RegistroUsuarioEncuesta",
+                        principalColumn: "IdRegistroUsuarioEncuesta");
+                    table.ForeignKey(
+                        name: "FK_RegistroPreguntaRespuesta_Respuestas_RespuestasIdRespuesta",
+                        column: x => x.RespuestasIdRespuesta,
+                        principalTable: "Respuestas",
+                        principalColumn: "IdRespuesta");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CtrlEncuestaPregunta_EncuestasIdEncuesta",
-                table: "CtrlEncuestaPregunta",
-                column: "EncuestasIdEncuesta");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CtrlEncuestaPregunta_PreguntasIdPregunta",
-                table: "CtrlEncuestaPregunta",
-                column: "PreguntasIdPregunta");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CtrlPreguntaRespuesta_PreguntasIdPregunta",
-                table: "CtrlPreguntaRespuesta",
-                column: "PreguntasIdPregunta");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CtrlPreguntaRespuesta_RespuestasIdRespuesta",
-                table: "CtrlPreguntaRespuesta",
-                column: "RespuestasIdRespuesta");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Encuestas_CategoriasIdCategoria",
@@ -276,10 +319,44 @@ namespace CapaDatos.Migrations
                 column: "PerfilesIdPerfil");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Correo",
-                table: "Usuarios",
-                column: "Correo",
-                unique: true);
+                name: "IX_RegistroEncuesta_RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta",
+                table: "RegistroEncuesta",
+                column: "RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroEncuestaPregunta_PreguntasIdPregunta",
+                table: "RegistroEncuestaPregunta",
+                column: "PreguntasIdPregunta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroEncuestaPregunta_RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta",
+                table: "RegistroEncuestaPregunta",
+                column: "RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroPreguntaRespuesta_PreguntasIdPregunta",
+                table: "RegistroPreguntaRespuesta",
+                column: "PreguntasIdPregunta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroPreguntaRespuesta_RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta",
+                table: "RegistroPreguntaRespuesta",
+                column: "RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroPreguntaRespuesta_RespuestasIdRespuesta",
+                table: "RegistroPreguntaRespuesta",
+                column: "RespuestasIdRespuesta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroUsuarioEncuesta_EncuestasIdEncuesta",
+                table: "RegistroUsuarioEncuesta",
+                column: "EncuestasIdEncuesta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroUsuarioEncuesta_UsuariosIdUsuario",
+                table: "RegistroUsuarioEncuesta",
+                column: "UsuariosIdUsuario");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_PerfilesIdPerfil",
@@ -290,34 +367,40 @@ namespace CapaDatos.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CtrlEncuestaPregunta");
-
-            migrationBuilder.DropTable(
-                name: "CtrlPreguntaRespuesta");
-
-            migrationBuilder.DropTable(
                 name: "Permisos");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "RegistroEncuesta");
 
             migrationBuilder.DropTable(
-                name: "Encuestas");
+                name: "RegistroEncuestaPregunta");
 
             migrationBuilder.DropTable(
-                name: "Preguntas");
-
-            migrationBuilder.DropTable(
-                name: "Respuestas");
+                name: "RegistroPreguntaRespuesta");
 
             migrationBuilder.DropTable(
                 name: "Acciones");
 
             migrationBuilder.DropTable(
-                name: "Perfiles");
+                name: "Preguntas");
+
+            migrationBuilder.DropTable(
+                name: "RegistroUsuarioEncuesta");
+
+            migrationBuilder.DropTable(
+                name: "Respuestas");
+
+            migrationBuilder.DropTable(
+                name: "Encuestas");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Categorias");
+
+            migrationBuilder.DropTable(
+                name: "Perfiles");
         }
     }
 }

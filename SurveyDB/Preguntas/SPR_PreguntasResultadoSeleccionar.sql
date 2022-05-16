@@ -15,28 +15,30 @@ BEGIN
 SET NOCOUNT ON;
 
 ;WITH Respondidas AS
-(SELECT DISTINCT
+(SELECT --DISTINCT
         rpr.IdPregunta AS [IdPregunta], 
         COUNT(rpr.IdRespuesta) [RCorrectas]
     FROM RegistroPreguntaRespuesta rpr
     INNER JOIN RegistroUsuarioEncuesta rue ON rue.IdRegistroUsuarioEncuesta = rpr.IdRegistroUsuarioEncuesta
     INNER JOIN Respuestas rs ON rs.IdRespuesta = rpr.IdRespuesta
-    INNER JOIN CtrlPreguntaRespuesta ON cpr.IdRespuesta = rs.IdRespuesta
+    INNER JOIN CtrlPreguntaRespuesta cpr ON cpr.IdRespuesta = rs.IdRespuesta
     WHERE cpr.IsRespuesta = 1
     AND rue.IdUsuario = @IdUsuario
     AND rue.IdEncuesta = @IdEncuesta
+    GROUP BY rpr.IdPregunta, rpr.IdRespuesta
 ), Correctas AS 
 (
-    SELECT DISTINCT
+    SELECT --DISTINCT
         rpr.IdPregunta AS [IdPregunta], 
         COUNT(rpr.IdRespuesta) [RCorrectas]
     FROM RegistroPreguntaRespuesta rpr
     INNER JOIN Respuestas rs ON rs.IdRespuesta = rpr.IdRespuesta
-    INNER JOIN CtrlPreguntaRespuesta ON cpr.IdRespuesta = rs.IdRespuesta
+    INNER JOIN CtrlPreguntaRespuesta cpr ON cpr.IdRespuesta = rs.IdRespuesta
     WHERE cpr.IsRespuesta = 1
+    GROUP BY rpr.IdPregunta, rpr.IdRespuesta
 )
 
-SELECT 
+SELECT DISTINCT
     p.IdPregunta,
     P.Pregunta,
     CASE 

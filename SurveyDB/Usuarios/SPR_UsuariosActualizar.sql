@@ -10,7 +10,7 @@ GO
 CREATE PROCEDURE SPR_UsuariosActualizar
     @IdUsuario INT,
     @Nombre NVARCHAR(50),
-    @Aparterno NVARCHAR(50),
+    @Apaterno NVARCHAR(50),
     @Amaterno NVARCHAR(50),
     @Correo NVARCHAR(100),
     @Contrasenia NVARCHAR(20),
@@ -25,7 +25,7 @@ DECLARE @Hoy DATETIME = GETDATE()
 
 UPDATE Usuarios SET 
     Nombre = @Nombre,
-    Aparterno = @Aparterno,
+    Apaterno = @Apaterno,
     Amaterno = @Amaterno,
     Correo = @Correo,
     Contrasenia = @Contrasenia,
