@@ -23,13 +23,15 @@ SELECT
     p.Contrasenia AS [Contrasenia],
     p.Estatus AS [Estatus],
     p.IdPerfil AS [IdPerfil],
-    ps.Nombre AS [Perfil]
+    NULL AS [PerfilesIdPerfil],
+    p.IdAgrego AS [IdAgrego],
+    p.FechaAgrego AS [FechaAgrego],
+    p.IdModifico AS [IdModifico],
+    p.FechaModifico AS [FechaModifico]
 FROM Usuarios p
 INNER JOIN Perfiles ps ON p.IdPerfil = ps.IdPerfil
-WHERE ISNULL(@IdUsuario, 0) = 0 OR p.IdUsuario = @IdUsuario
-AND ISNULL(@Nombre, '') = '' OR p.Nombre = @Nombre
-
-SELECT @IdUsuario AS [IdUsuario]
+WHERE (ISNULL(@IdUsuario, 0) = 0 OR p.IdUsuario = @IdUsuario)
+AND (ISNULL(@Nombre, '') = '' OR p.Nombre = @Nombre)
 
 END
 GO

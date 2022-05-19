@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuerveyAPI.Data;
 
@@ -11,9 +12,10 @@ using SuerveyAPI.Data;
 namespace SuerveyAPI.Migrations
 {
     [DbContext(typeof(SuerveyAPIContext))]
-    partial class SuerveyAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20220518195527_jwtInicio")]
+    partial class jwtInicio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasKey("IdCategoria");
 
-                    b.ToTable("Categorias", (string)null);
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.CtrlEncuestaPregunta", b =>
@@ -90,7 +92,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("PreguntasIdPregunta");
 
-                    b.ToTable("CtrlEncuestaPregunta", (string)null);
+                    b.ToTable("CtrlEncuestaPregunta");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.CtrlPreguntaRespuesta", b =>
@@ -138,7 +140,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("RespuestasIdRespuesta");
 
-                    b.ToTable("CtrlPreguntaRespuesta", (string)null);
+                    b.ToTable("CtrlPreguntaRespuesta");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.Encuestas", b =>
@@ -179,7 +181,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("CategoriasIdCategoria");
 
-                    b.ToTable("Encuestas", (string)null);
+                    b.ToTable("Encuestas");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.EncuestaSelect", b =>
@@ -266,7 +268,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasKey("IdPregunta");
 
-                    b.ToTable("Preguntas", (string)null);
+                    b.ToTable("Preguntas");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.PreguntasResultadoSelect", b =>
@@ -362,7 +364,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta");
 
-                    b.ToTable("RegistroEncuesta", (string)null);
+                    b.ToTable("RegistroEncuesta");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.RegistroEncuestaPregunta", b =>
@@ -410,7 +412,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("RegistroUsuarioEncuestaIdRegistroUsuarioEncuesta");
 
-                    b.ToTable("RegistroEncuestaPregunta", (string)null);
+                    b.ToTable("RegistroEncuestaPregunta");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.RegistroPreguntaRespuesta", b =>
@@ -459,7 +461,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("RespuestasIdRespuesta");
 
-                    b.ToTable("RegistroPreguntaRespuesta", (string)null);
+                    b.ToTable("RegistroPreguntaRespuesta");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.RegistroUsuarioEncuesta", b =>
@@ -500,7 +502,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("UsuariosIdUsuario");
 
-                    b.ToTable("RegistroUsuarioEncuesta", (string)null);
+                    b.ToTable("RegistroUsuarioEncuesta");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.Respuestas", b =>
@@ -530,7 +532,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasKey("IdRespuesta");
 
-                    b.ToTable("Respuestas", (string)null);
+                    b.ToTable("Respuestas");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.RespuestasSelect", b =>
@@ -590,7 +592,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasKey("IdAccion");
 
-                    b.ToTable("Acciones", (string)null);
+                    b.ToTable("Acciones");
                 });
 
             modelBuilder.Entity("CapaDatos.Seguridad.Perfiles", b =>
@@ -620,7 +622,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasKey("IdPerfil");
 
-                    b.ToTable("Perfiles", (string)null);
+                    b.ToTable("Perfiles");
                 });
 
             modelBuilder.Entity("CapaDatos.Seguridad.Permisos", b =>
@@ -661,7 +663,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("PerfilesIdPerfil");
 
-                    b.ToTable("Permisos", (string)null);
+                    b.ToTable("Permisos");
                 });
 
             modelBuilder.Entity("CapaDatos.Seguridad.Usuarios", b =>
@@ -722,7 +724,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("PerfilesIdPerfil");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("CapaDatos.Seguridad.UsuariosSeguridad", b =>
@@ -763,7 +765,7 @@ namespace SuerveyAPI.Migrations
 
                     b.HasIndex("UsuariosIdUsuario");
 
-                    b.ToTable("UsuariosSeguridad", (string)null);
+                    b.ToTable("UsuariosSeguridad");
                 });
 
             modelBuilder.Entity("CapaDatos.Data.CtrlEncuestaPregunta", b =>

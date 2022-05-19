@@ -23,8 +23,8 @@ SELECT DISTINCT
     p.FechaModifico AS [FechaModifico]
 FROM Preguntas p
 INNER JOIN CtrlEncuestaPregunta ctrlep ON p.IdPregunta = ctrlep.IdPregunta
-WHERE ISNULL(@IdPregunta, 0) = 0 OR p.IdPregunta = @IdPregunta
-AND ISNULL(@IdEncuesta, '') = '' OR ctrlep.IdEncuesta = @IdEncuesta
+WHERE (ISNULL(@IdPregunta, 0) = 0 OR p.IdPregunta = @IdPregunta)
+AND (ISNULL(@IdEncuesta, '') = '' OR ctrlep.IdEncuesta = @IdEncuesta)
 
 END
 GO

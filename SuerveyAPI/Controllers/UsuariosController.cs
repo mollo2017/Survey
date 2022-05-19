@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CapaDatos.Seguridad;
 using SuerveyAPI.Data;
+using CapaDatos;
+using CapaDatos.Data;
 
 namespace SuerveyAPI.Controllers
 {
@@ -84,16 +86,65 @@ namespace SuerveyAPI.Controllers
         // POST: api/Usuarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Usuarios>> PostUsuarios(Usuarios usuarios)
+        public async Task<IEnumerable<Usuarios>> PostUsuarios(Usuarios usuarios)
         {
-          if (_context.Usuarios == null)
-          {
-              return Problem("Entity set 'SuerveyAPIContext.Usuarios'  is null.");
-          }
-            _context.Usuarios.Add(usuarios);
-            await _context.SaveChangesAsync();
+            /*if (_context.Usuarios == null)
+            {
+                return Problem("Entity set 'SuerveyAPIContext.Usuarios'  is null.");
+            }*/
+            string Llave = string.Empty;
+            string ContraseniaHash = string.Empty;
+            Utils.MtdObtenerHash(usuarios.Contrasenia, out Llave, out ContraseniaHash);
+            /*_context.Usuarios.Add(usuarios);
+            await _context.SaveChangesAsync();*/
 
-            return CreatedAtAction("GetUsuarios", new { id = usuarios.IdUsuario }, usuarios);
+            return await _context.Set<Usuarios>().FromSqlInterpolated($@"EXEC SPR_UsuariosInsertar
+                                                                            @IdUsuario={usuarios.IdUsuario},
+                                                                            @Nombre={usuarios.Nombre},
+                                                                            @Apaterno={usuarios.Apaterno},
+                                                                            @Amaterno={usuarios.Amaterno},
+                                                                            @Correo={usuarios.Correo},
+                                                                            @Contrasenia={usuarios.Contrasenia},
+                                                                            @Estatus={usuarios.Estatus},
+                                                                            @IdPerfil={usuarios.IdPerfil},
+                                                                            @Llave={Llave},
+                                                                            @ContraseniaHash={ContraseniaHash}").ToListAsync();
+
+            //return CreatedAtAction("GetUsuarios", new { id = usuarios.IdUsuario }, usuarios);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(UsuarioSeguridad usr)
+        {
+            var llaveHash = _context.Set<UsrSegToken>().FromSqlInterpolated($@"EXEC SPR_UsuariosVerificaHash
+                                                                            @Correo={usr.correo},
+                                                                            @Contrasenia={usr.contrasenia}").AsAsyncEnumerable();
+
+            string Llave = string.Empty;
+            await foreach (UsrSegToken ust in llaveHash)
+            {
+                if (!string.IsNullOrEmpty(ust.Llave))
+                    Llave = ust.Llave;
+                else
+                    return BadRequest("No se ha encontrado el usuario");
+            }
+
+            string ContraseniaHash = string.Empty;
+            Utils.MtdObtenerContraseniaHash(usr.contrasenia, Llave, out ContraseniaHash);
+            var res = _context.Set<AccesoUsuarioToken>().FromSqlInterpolated($@"EXEC SPR_UsuariosLogin
+                                                                            @Correo={usr.correo},
+                                                                            @Contrasenia={usr.contrasenia},
+                                                                            @Llave={Llave},
+                                                                            @ContraseniaHash={ContraseniaHash}").AsAsyncEnumerable();
+            await foreach (AccesoUsuarioToken uct in res)
+            {
+                if (uct.Acceso)
+                    return Utils.MtdCrearToken(uct.FechaExpira, uct.Nombre, Llave);
+                else
+                    return BadRequest("Contraseña incorrecta");
+            }
+
+            return BadRequest("Se produjo un error de datos");
         }
 
         // DELETE: api/Usuarios/5

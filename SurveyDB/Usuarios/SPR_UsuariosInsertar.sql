@@ -15,13 +15,17 @@ CREATE PROCEDURE SPR_UsuariosInsertar
 @Correo NVARCHAR(100),
 @Contrasenia NVARCHAR(20),
 @Estatus bit,
-@IdPerfil INT
+@IdPerfil INT,
+@Llave NVARCHAR(MAX),
+@ContraseniaHash NVARCHAR(MAX)
 
 AS
 BEGIN
 SET NOCOUNT ON;
 
 DECLARE @Hoy DATETIME = GETDATE()
+DECLARE @IdUsuarioInsert INT = NULL
+
 INSERT INTO Usuarios(
     Nombre,
     Apaterno,
@@ -49,7 +53,28 @@ VALUES(
     @Hoy
 )
 
-SELECT SCOPE_IDENTITY() AS [IdUsuario]
+SET @IdUsuarioInsert = SCOPE_IDENTITY()
+
+INSERT INTO UsuariosSeguridad(
+    Llave,
+    ContraseniaHash,
+    IdUsuario,
+    IdAgrego,
+    FechaAgrego,
+    IdModifico,
+    FechaModifico
+)
+VALUES(
+    @Llave,
+    @ContraseniaHash,
+    @IdUsuarioInsert,
+    @IdUsuario,
+    @Hoy,
+    @IdUsuario,
+    @Hoy
+)
+
+EXEC SPR_UsuariosSeleccionar @Nombre = NULL, @IdUsuario = @IdUsuarioInsert
 
 END
 GO

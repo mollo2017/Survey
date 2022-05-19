@@ -24,6 +24,14 @@ namespace SuerveyAPI.Data
             modelBuilder.Entity<PreguntasSelect>().ToSqlQuery("EXEC SPR_PreguntasSeleccionar").HasNoKey();
             modelBuilder.Entity<PreguntasTiempoSelect>().ToSqlQuery("EXEC SPR_PreguntasTiempoSeleccionar").HasNoKey();
             modelBuilder.Entity<RespuestasSelect>().ToSqlQuery("EXEC SPR_RespuestasSeleccionar").HasNoKey();
+
+            modelBuilder.Entity<AccesoUsuarioToken>().ToSqlQuery("EXEC SPR_UsuariosLogin").HasNoKey();
+
+            modelBuilder.Entity<UsrSegToken>().ToSqlQuery("EXEC SPR_UsuariosVerificaHash").HasNoKey();
+
+            modelBuilder.Entity<Usuarios>(entity => {
+                entity.HasIndex(e => e.Correo).IsUnique();
+            });
         }
 
         public DbSet<CapaDatos.Data.Categorias>? Categorias { get; set; }
@@ -53,5 +61,7 @@ namespace SuerveyAPI.Data
         public DbSet<CapaDatos.Data.CtrlEncuestaPregunta> CtrlEncuestaPregunta { get; set; }
 
         public DbSet<CapaDatos.Data.CtrlPreguntaRespuesta>CtrlPreguntaRespuesta { get; set; }
+
+        public DbSet<CapaDatos.Seguridad.UsuariosSeguridad> UsuariosSeguridad { get; set; }
     }
 }

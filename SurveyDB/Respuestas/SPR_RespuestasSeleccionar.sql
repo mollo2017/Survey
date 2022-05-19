@@ -25,8 +25,8 @@ SELECT DISTINCT
     ctrlpr.Orden AS [Orden]
 FROM Respuestas r
 INNER JOIN CtrlPreguntaRespuesta ctrlpr ON r.IdRespuesta = ctrlpr.IdRespuesta
-WHERE ISNULL(@IdRespuesta, 0) = 0 OR r.IdRespuesta = @IdRespuesta
-AND ISNULL(@IdPregunta, '') = '' OR ctrlpr.IdPregunta = @IdPregunta
+WHERE (ISNULL(@IdRespuesta, 0) = 0 OR r.IdRespuesta = @IdRespuesta)
+AND (ISNULL(@IdPregunta, '') = '' OR ctrlpr.IdPregunta = @IdPregunta)
 ORDER BY ctrlpr.Orden DESC
 
 END

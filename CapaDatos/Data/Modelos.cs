@@ -75,4 +75,20 @@ namespace CapaDatos.Data
         public bool IsRespuesta { get; set; }
         public int Orden { get; set; }
     }
+    public class AccesoUsuarioToken
+    {
+        public bool Acceso { get; set; }
+        public DateTime FechaExpira { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+    }
+
+    public class UsuarioSeguridad
+    {
+        public string correo { get; set; } = string.Empty;
+        public string contrasenia { get; set; } = string.Empty;
+    }
+    public class UsrSegToken
+    {
+        public string Llave { get; set; } = string.Empty;
+    }
 }

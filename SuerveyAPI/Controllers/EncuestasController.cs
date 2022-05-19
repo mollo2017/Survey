@@ -59,8 +59,9 @@ namespace SuerveyAPI.Controllers
         /// <param name="idCategoria">Identificador de categoria</param>
         /// <param name="idUsuario">Identificador de usuario</param>
         /// <returns></returns>
-        [HttpGet("GetEncuestasPorUsuario/{id},{nombre},{estatus},{idCategoria},{idUsuario}")]
-        public async Task<IEnumerable<EncuestaSelect>> GetEncuestasPorUsuario(int? id, string? nombre, bool? estatus, int? idCategoria, int? idUsuario)
+        [HttpGet("GetEncuestasPorUsuario")]
+        
+        public async Task<IEnumerable<EncuestaSelect>> GetEncuestasPorUsuario([FromQuery]int id, [FromQuery] string nombre, [FromQuery] bool estatus, [FromQuery] int idCategoria, int? idUsuario = null)
         {
             
             return await _context.Set<EncuestaSelect>().FromSqlInterpolated($@"EXEC SPR_EncuestasSeleccionar
