@@ -9,6 +9,7 @@ using CapaDatos.Seguridad;
 using SuerveyAPI.Data;
 using CapaDatos;
 using CapaDatos.Data;
+using SuerveyAPI.Utils_Code;
 
 namespace SuerveyAPI.Controllers
 {
@@ -83,20 +84,19 @@ namespace SuerveyAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Método para dar de alta un usuario
+        /// </summary>
+        /// <param name="usuarios">Objeto con datos de alta</param>
+        /// <returns>El objeto usuario creado</returns>
         // POST: api/Usuarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<IEnumerable<Usuarios>> PostUsuarios(Usuarios usuarios)
         {
-            /*if (_context.Usuarios == null)
-            {
-                return Problem("Entity set 'SuerveyAPIContext.Usuarios'  is null.");
-            }*/
             string Llave = string.Empty;
             string ContraseniaHash = string.Empty;
             Utils.MtdObtenerHash(usuarios.Contrasenia, out Llave, out ContraseniaHash);
-            /*_context.Usuarios.Add(usuarios);
-            await _context.SaveChangesAsync();*/
 
             return await _context.Set<Usuarios>().FromSqlInterpolated($@"EXEC SPR_UsuariosInsertar
                                                                             @IdUsuario={usuarios.IdUsuario},
@@ -109,26 +109,36 @@ namespace SuerveyAPI.Controllers
                                                                             @IdPerfil={usuarios.IdPerfil},
                                                                             @Llave={Llave},
                                                                             @ContraseniaHash={ContraseniaHash}").ToListAsync();
-
-            //return CreatedAtAction("GetUsuarios", new { id = usuarios.IdUsuario }, usuarios);
         }
 
+        /// <summary>
+        /// Método de para el login con implementación de JWT
+        /// </summary>
+        /// <param name="usr">Objeto con correo y contraseña de quien solicita el login</param>
+        /// <returns>Objeto de login que contiene el token en caso de ser correcto de lo contrario retorna mensaje</returns>
+
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UsuarioSeguridad usr)
+        public async Task<ActionResult<Tokenlogin>> Login(UsuarioSeguridad usr)
         {
+            //Consulta si existe el usuario para las credenciales ingresadas y obtiene la llave para hacer el hash a la contraseña
             var llaveHash = _context.Set<UsrSegToken>().FromSqlInterpolated($@"EXEC SPR_UsuariosVerificaHash
                                                                             @Correo={usr.correo},
                                                                             @Contrasenia={usr.contrasenia}").AsAsyncEnumerable();
 
             string Llave = string.Empty;
+
+            if (llaveHash.GetAsyncEnumerator == null)
+                return new Tokenlogin(false, "", "3", ApiConst.usuarioContrasenia);
+
             await foreach (UsrSegToken ust in llaveHash)
             {
-                if (!string.IsNullOrEmpty(ust.Llave))
+                bool ac = ust.Acceso;
+                if (ust.Acceso)
                     Llave = ust.Llave;
                 else
-                    return BadRequest("No se ha encontrado el usuario");
+                    return new Tokenlogin(ust.Acceso, "", ust.Codigo.ToString(), ust.Mensaje);
             }
-
+            //Consulta la contraseña en hash que sea correcta
             string ContraseniaHash = string.Empty;
             Utils.MtdObtenerContraseniaHash(usr.contrasenia, Llave, out ContraseniaHash);
             var res = _context.Set<AccesoUsuarioToken>().FromSqlInterpolated($@"EXEC SPR_UsuariosLogin
@@ -138,13 +148,16 @@ namespace SuerveyAPI.Controllers
                                                                             @ContraseniaHash={ContraseniaHash}").AsAsyncEnumerable();
             await foreach (AccesoUsuarioToken uct in res)
             {
-                if (uct.Acceso)
-                    return Utils.MtdCrearToken(uct.FechaExpira, uct.Nombre, Llave);
+                bool ac = uct.Acceso;
+                if (ac)
+                {
+                    return new Tokenlogin(ac, Utils.MtdCrearToken(uct.FechaExpira, uct.Nombre, Llave), "0", "");
+                }
                 else
-                    return BadRequest("Contraseña incorrecta");
+                    return new Tokenlogin(ac, "", "2", ApiConst.contraseniaIncorrecta);
             }
 
-            return BadRequest("Se produjo un error de datos");
+            return new Tokenlogin(false, "", "1000", ApiConst.errorDatos);
         }
 
         // DELETE: api/Usuarios/5

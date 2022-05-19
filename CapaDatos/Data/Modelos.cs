@@ -67,7 +67,9 @@ namespace CapaDatos.Data
         public string Pregunta { get; set; } = string.Empty;
         public string TiempoRespuesta { get; set; } = string.Empty;
     }
-    //Modelo para obtener datos de respuestas pertenecientes a preguntas
+    /// <summary>
+    /// Modelo para obtener datos de respuestas pertenecientes a preguntas
+    /// </summary>
     public class RespuestasSelect : timeStampModel
     {
         public int IdRespuesta { get; set; }
@@ -75,20 +77,48 @@ namespace CapaDatos.Data
         public bool IsRespuesta { get; set; }
         public int Orden { get; set; }
     }
+    /// <summary>
+    /// Clase para verificar la contraseña hash en BD
+    /// </summary>
     public class AccesoUsuarioToken
     {
         public bool Acceso { get; set; }
         public DateTime FechaExpira { get; set; }
         public string Nombre { get; set; } = string.Empty;
     }
-
+    /// <summary>
+    /// Clase para obtener datos de login
+    /// </summary>
     public class UsuarioSeguridad
     {
         public string correo { get; set; } = string.Empty;
         public string contrasenia { get; set; } = string.Empty;
     }
+    /// <summary>
+    /// Clase para controlar la consulta de llave a la BD
+    /// </summary>
     public class UsrSegToken
     {
+        public bool Acceso { get; set; }
         public string Llave { get; set; } = string.Empty;
+        public string Mensaje { get; set; } = string.Empty;
+        public int Codigo { get; set; }
+    }
+    /// <summary>
+    /// Clase para retornar el resultado de login
+    /// </summary>
+    public class Tokenlogin
+    {
+        public Tokenlogin(bool _Acceso, string _Token, string _ErrorCode, string _MsgError)
+        {
+            this.Acceso = _Acceso;
+            this.Token = _Token;
+            this.ErrorCode = _ErrorCode;
+            this.MsgError = _MsgError;
+        }
+        public bool Acceso { get; set; }
+        public string Token { get; set; } = string.Empty;
+        public string ErrorCode { get; set; } = string.Empty;
+        public string MsgError { get; set; } = string.Empty;
     }
 }

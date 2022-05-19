@@ -1,3 +1,10 @@
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.csproj.AssemblyReference.cache
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.AssemblyInfoInputs.cache
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.AssemblyInfo.cs
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.csproj.CoreCompileInputs.cache
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\appsettings.json
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\SuerveyAPI.exe
@@ -30,6 +37,7 @@ C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.D
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
@@ -246,13 +254,6 @@ C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\runtimes\wi
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\CapaDatos.dll
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\CapaDatos.pdb
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.csproj.AssemblyReference.cache
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.AssemblyInfoInputs.cache
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.AssemblyInfo.cs
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.csproj.CoreCompileInputs.cache
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\scopedcss\bundle\SuerveyAPI.styles.css
@@ -262,4 +263,3 @@ C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\refint\Suer
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.pdb
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\SuerveyAPI.genruntimeconfig.cache
 C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\obj\Debug\net6.0\ref\SuerveyAPI.dll
-C:\Users\mmendozv\source\repos\SurveySys\SuerveyAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
